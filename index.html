@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Rolling Dices</title>
+    <link href="https://fonts.googleapis.com/css?family=Archivo+Black" rel="stylesheet">
+    <style>
+        body {
+            text-align: center;
+            background-color: #61b1ff;
+            user-select: none;
+        }
+
+        #heading_text {
+            font-size: 45px;
+            font-family: 'Archivo Black', sans-serif;
+            font-weight: 100;
+            text-transform: capitalize;
+            position: relative;
+        }
+
+        .button {
+            background-color: dodgerblue;
+            color: black;
+            display: inline-block;
+            height: 70px;
+            width: 250px;
+            border: solid;
+            border-color: black;
+            border-radius: 7%;
+            font-size: 30px;
+            line-height: 70px;
+            margin-top: 60px;
+            cursor: pointer;
+        }
+
+        .button:active {
+            transform: translate(1px, 1px);
+        }
+
+        .img-container {
+            padding-top: 40px;
+        }
+
+        .dice-image {
+            width: 200px;
+            padding: 20px;
+        }
+
+        @keyframes shake {
+            0% {
+                left: 5px;
+            }
+            50% {
+                left: -5px;
+            }
+            100% {
+                left: 5px;
+            }
+        }
+    </style>
+</head>
+<body>
+<h1>
+    <span id="heading_text">Shake us</span>
+</h1>
+<div class="img-container">
+    <img id="first_dice" class="dice-image"
+         src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/26/Dice-6-b.svg/512px-Dice-6-b.svg.png"
+         alt="first-dice-pic">
+    <img id="second_dice" class="dice-image"
+         src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/26/Dice-6-b.svg/512px-Dice-6-b.svg.png"
+         alt="second-dice-pic">
+</div>
+<div>
+    <span onclick="shakeDice();" class="button">
+        Shake 'em!
+    </span>
+</div>
+<script>
+    let arr = [
+        "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1b/Dice-1-b.svg/557px-Dice-1-b.svg.png",
+        "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5f/Dice-2-b.svg/512px-Dice-2-b.svg.png",
+        "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b1/Dice-3-b.svg/512px-Dice-3-b.svg.png",
+        "https://upload.wikimedia.org/wikipedia/commons/thumb/f/fd/Dice-4-b.svg/512px-Dice-4-b.svg.png",
+        "https://upload.wikimedia.org/wikipedia/commons/thumb/0/08/Dice-5-b.svg/512px-Dice-5-b.svg.png",
+        "https://upload.wikimedia.org/wikipedia/commons/thumb/2/26/Dice-6-b.svg/512px-Dice-6-b.svg.png"
+    ]
+
+    function getRndDiceNum() {
+        return Math.floor(Math.random() * (7 - 1)) + 1;
+    }
+
+    function updateDice() {
+        let firstDiceNumber = getRndDiceNum();
+        let secondDiceNumber = getRndDiceNum();
+        document.getElementById("first_dice").src = arr[firstDiceNumber - 1];
+        document.getElementById("second_dice").src = arr[secondDiceNumber - 1];
+        sum = firstDiceNumber + secondDiceNumber;
+        if (sum === 2) {
+            document.getElementById("heading_text").innerHTML = "Snake Eyes";
+        } else {
+            document.getElementById("heading_text").innerHTML = sum;
+        }
+        document.getElementById("heading_text").style.animation = "";
+    }
+
+    function shakeDice() {
+        document.getElementById("heading_text").innerHTML = "Shake, shake, shake...";
+        document.getElementById("heading_text").style.animation = "shake 0.1s linear 0s infinite";
+        setTimeout(updateDice, 1000);
+    }
+</script>
+</body>
+</html>
